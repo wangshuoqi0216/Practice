@@ -1,0 +1,22 @@
+%% AC equation
+clear; clc
+syms x y epsilon M t
+
+phi = sin(x).*sin(y).*exp(-t);
+
+lap_phi = diff(phi,x,2) + diff(phi,y,2);
+
+fun = (phi.^3-phi);
+
+mu = - epsilon^2 * lap_phi + fun;
+
+lap_mu = diff(mu,x,2) + diff(mu,y,2);
+
+% rhs = simplify(diff(phi,t) + M*mu);
+rhs = simplify(diff(phi,t) - M*lap_mu);
+
+rhs=char(rhs);
+rhs= strrep(rhs,'*','.*');
+rhs= strrep(rhs,'/','./');
+rhs= strrep(rhs,'^','.^');
+
